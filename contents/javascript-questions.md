@@ -19,7 +19,6 @@ Capturing Phase is when event goes down to the element. Target phase is when eve
 </body>
 ```
 
-// javaScript file:
 ```js
 const grandparent = document.querySelector(".grandparent")
 const parent = document.querySelector(".parent")
