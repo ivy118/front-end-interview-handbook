@@ -1,4 +1,4 @@
-### Phases of JavaScript Event
+## Phases of JavaScript Event
 There are three different phases during lifecycle of an JavaScript event.
 
 Capturing Phase
@@ -55,7 +55,7 @@ for the third parameter, you can pass in {once: true}.
 Syntax: parent.removeEventListener("click", printHi)
 
 
-### Explain event delegation
+## Explain event delegation
 
 Event delegation is a technique involving adding event listeners to a parent element instead of adding them to the descendant elements. Event Delegation is basically a pattern to handle events efficiently. That event listener analyzes bubbled events to find a match on child elements.
 
@@ -80,7 +80,7 @@ document.addEventListener("click", e => {
 
 [[↑] Back to top](#table-of-contents)
 
-### What is `"use strict";`? What are the advantages and disadvantages to using it?
+## What is `"use strict";`? What are the advantages and disadvantages to using it?
 
 'use strict' is a statement used to enable strict mode to entire scripts or individual functions. Strict mode is a way to opt into a restricted variant of JavaScript.
 
