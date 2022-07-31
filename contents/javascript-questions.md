@@ -44,7 +44,19 @@ Before the bubbling event happens, the events actually travels from outward to i
 
 Event capturing is the opposite: it moves from the outward to most inward element.
 
-if you want you event to be a capture event, you can pass in a third parameter to the event listner, like {capture: true}.
+-- if you want you event to be a capture event, you can pass in a third parameter to the event listner, like {capture: true}.
+
+There are ways to stop the event from bubbling all the way up or capturing the way down: event propagation. 
+
+e.stopPropagation() method. 
+
+
+-- What if you just want to run th events once, and never run it again. 
+for the third parameter, you can pass in {once: true}.
+
+-- You can remove a event handler after certain time by the removeEventListener function. 
+Syntax: parent.removeEventListener("click", printHi)
+
 
 
 ### Explain event delegation
@@ -53,6 +65,17 @@ Event delegation is a technique involving adding event listeners to a parent ele
 
 - Memory footprint goes down because only one single handler is needed on the parent element, rather than having to attach event handlers on each descendant.
 - There is no need to unbind the handler from elements that are removed and to bind the event for new elements.
+
+Example: if we want every div in the document to console.log "hi" when it's clicked. 
+You can add a click handler to document itself, and specify that you want only all div tags to have this listener.
+
+```js
+document.addEventListener("click", e => {
+	if (e.target.matches('div')) {
+		console.log('hi')
+	}
+})
+```
 
 ###### References
 
