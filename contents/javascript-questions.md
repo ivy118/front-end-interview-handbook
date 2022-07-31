@@ -300,6 +300,7 @@ const video = {
 };
 
 video.showTags(); //window
+```
 
 How do we actually have access to the video object inside of the arrow function then? 
 we can pass in the object we want to refer to as the second parameter of the showTags() method.
