@@ -375,6 +375,53 @@ baz = 'qux';
 - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/var
 - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/const
 
+## Explain "hoisting".
+
+Hoisting is a term used to explain the behavior of variable declarations in your code. Variables declared or initialized with the `var` keyword will have their declaration "moved" up to the top of their module/function-level scope, which we refer to as hoisting. However, only the declaration is hoisted, the assignment (if there is one), will stay where it is.
+
+Note that the declaration is not actually moved - the JavaScript engine parses the declarations during compilation and becomes aware of declarations and their scopes. It is just easier to understand this behavior by visualizing the declarations as being hoisted to the top of their scope. Let's explain with a few examples.
+
+```js
+console.log(foo); // undefined
+var foo = 1;
+console.log(foo); // 1
+```
+
+Function declarations have the body hoisted while the function expressions (written in the form of variable declarations) only has the variable declaration hoisted.
+
+```js
+// Function Declaration
+console.log(foo); // [Function: foo]
+foo(); // 'FOOOOO'
+function foo() {
+  console.log('FOOOOO');
+}
+console.log(foo); // [Function: foo]
+
+// Function Expression
+console.log(bar); // undefined
+bar(); // Uncaught TypeError: bar is not a function
+var bar = function () {
+  console.log('BARRRR');
+};
+console.log(bar); // [Function: bar]
+```
+
+Variables declared via `let` and `const` are hoisted as well. However, unlike `var` and `function`, they are not initialized and accessing them before the declaration will result in a `ReferenceError` exception. The variable is in a "temporal dead zone" from the start of the block until the declaration is processed.
+
+```js
+x; // undefined
+y; // Reference error: y is not defined
+
+var x = 'local';
+let y = 'local';
+```
+
+###### References
+
+- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Grammar_and_Types#Variable_hoisting
+- https://stackoverflow.com/questions/31219420/are-variables-declared-with-let-or-const-not-hoisted-in-es6/31222689#31222689
+
 ## Explain how prototypal inheritance works
 
 This is an extremely common JavaScript interview question. All JavaScript objects have a `__proto__` property with the exception of objects created with `__Object.create(null)__`, that is a reference to another object, which is called the object's "prototype". When a property is accessed on an object and if the property is not found on that object, the JavaScript engine looks at the object's `__proto__`, and the `__proto__`'s `__proto__` and so on, until it finds the property defined on one of the `__proto__`s or until it reaches the end of the prototype chain. This behavior simulates classical inheritance, but it is really more of [delegation than inheritance](https://davidwalsh.name/javascript-objects).
@@ -739,62 +786,10 @@ const template = `<div>My name is: ${name}</div>`;
 
 However, do be aware of a potential XSS in the above approach as the contents are not escaped for you, unlike in templating libraries.
 
-[[↑] Back to top](#table-of-contents)
-
-### Explain "hoisting".
-
-Hoisting is a term used to explain the behavior of variable declarations in your code. Variables declared or initialized with the `var` keyword will have their declaration "moved" up to the top of their module/function-level scope, which we refer to as hoisting. However, only the declaration is hoisted, the assignment (if there is one), will stay where it is.
-
-Note that the declaration is not actually moved - the JavaScript engine parses the declarations during compilation and becomes aware of declarations and their scopes. It is just easier to understand this behavior by visualizing the declarations as being hoisted to the top of their scope. Let's explain with a few examples.
-
-```js
-console.log(foo); // undefined
-var foo = 1;
-console.log(foo); // 1
-```
-
-Function declarations have the body hoisted while the function expressions (written in the form of variable declarations) only has the variable declaration hoisted.
-
-```js
-// Function Declaration
-console.log(foo); // [Function: foo]
-foo(); // 'FOOOOO'
-function foo() {
-  console.log('FOOOOO');
-}
-console.log(foo); // [Function: foo]
-
-// Function Expression
-console.log(bar); // undefined
-bar(); // Uncaught TypeError: bar is not a function
-var bar = function () {
-  console.log('BARRRR');
-};
-console.log(bar); // [Function: bar]
-```
-
-Variables declared via `let` and `const` are hoisted as well. However, unlike `var` and `function`, they are not initialized and accessing them before the declaration will result in a `ReferenceError` exception. The variable is in a "temporal dead zone" from the start of the block until the declaration is processed.
-
-```js
-x; // undefined
-y; // Reference error: y is not defined
-
-var x = 'local';
-let y = 'local';
-```
-
-###### References
-
-- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Grammar_and_Types#Variable_hoisting
-- https://stackoverflow.com/questions/31219420/are-variables-declared-with-let-or-const-not-hoisted-in-es6/31222689#31222689
-
-[[↑] Back to top](#table-of-contents)
 
 ### Describe event bubbling.
 
 When an event triggers on a DOM element, it will attempt to handle the event if there is a listener attached, then the event is bubbled up to its parent and the same thing happens. This bubbling occurs up the element's ancestors all the way to the `document`. Event bubbling is the mechanism behind event delegation.
-
-[[↑] Back to top](#table-of-contents)
 
 ### What's the difference between an "attribute" and a "property"?
 
@@ -817,8 +812,6 @@ console.log(input.value); // Hello World!
 
 - https://stackoverflow.com/questions/6003819/properties-and-attributes-in-html
 
-[[↑] Back to top](#table-of-contents)
-
 ### Why is extending built-in JavaScript objects not a good idea?
 
 Extending a built-in/native JavaScript object means adding properties/functions to its `prototype`. While this may seem like a good idea at first, it is dangerous in practice. Imagine your code uses a few libraries that both extend the `Array.prototype` by adding the same `contains` method, the implementations will overwrite each other and your code will break if the behavior of these two methods is not the same.
@@ -828,8 +821,6 @@ The only time you may want to extend a native object is when you want to create 
 ###### References
 
 - http://lucybain.com/blog/2014/js-extending-built-in-objects/
-
-[[↑] Back to top](#table-of-contents)
 
 ### Difference between document `load` event and document `DOMContentLoaded` event?
 
@@ -842,7 +833,6 @@ The `DOMContentLoaded` event is fired when the initial HTML document has been co
 - https://developer.mozilla.org/en-US/docs/Web/Events/DOMContentLoaded
 - https://developer.mozilla.org/en-US/docs/Web/Events/load
 
-[[↑] Back to top](#table-of-contents)
 
 ### What is the difference between `==` and `===`?
 
@@ -869,7 +859,6 @@ console.log(a == undefined); // true
 
 - https://stackoverflow.com/questions/359494/which-equals-operator-vs-should-be-used-in-javascript-comparisons
 
-[[↑] Back to top](#table-of-contents)
 
 ### Explain the same-origin policy with regards to JavaScript.
 
@@ -879,7 +868,6 @@ The same-origin policy prevents JavaScript from making requests across domain bo
 
 - https://en.wikipedia.org/wiki/Same-origin_policy
 
-[[↑] Back to top](#table-of-contents)
 
 ### Make this work:
 
@@ -903,7 +891,6 @@ const duplicate = (arr) => [...arr, ...arr];
 duplicate([1, 2, 3, 4, 5]); // [1,2,3,4,5,1,2,3,4,5]
 ```
 
-[[↑] Back to top](#table-of-contents)
 
 ### Why is it called a Ternary expression, what does the word "Ternary" indicate?
 
@@ -912,8 +899,6 @@ duplicate([1, 2, 3, 4, 5]); // [1,2,3,4,5,1,2,3,4,5]
 ###### References
 
 - https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Operators/Conditional_Operator
-
-[[↑] Back to top](#table-of-contents)
 
 
 ### Create a for loop that iterates up to `100` while outputting **"fizz"** at multiples of `3`, **"buzz"** at multiples of `5` and **"fizzbuzz"** at multiples of `3` and `5`.
@@ -934,13 +919,11 @@ I would not advise you to write the above during interviews though. Just stick w
 
 - https://gist.github.com/jaysonrowe/1592432
 
-[[↑] Back to top](#table-of-contents)
 
 ### Why is it, in general, a good idea to leave the global scope of a website as-is and never touch it?
 
 Every script has access to the global scope, and if everyone uses the global namespace to define their variables, collisions will likely occur. Use the module pattern (IIFEs) to encapsulate your variables within a local namespace.
 
-[[↑] Back to top](#table-of-contents)
 
 ### Why would you use something like the `load` event? Does this event have disadvantages? Do you know any alternatives, and why would you use those?
 
@@ -954,7 +937,6 @@ TODO.
 
 - https://developer.mozilla.org/en-US/docs/Web/API/GlobalEventHandlers/onload
 
-[[↑] Back to top](#table-of-contents)
 
 ### Explain what a single page app is and how to make one SEO-friendly.
 
@@ -983,7 +965,6 @@ The downsides:
 - http://blog.isquaredsoftware.com/presentations/2016-10-revolution-of-web-dev/
 - https://medium.freecodecamp.com/heres-why-client-side-rendering-won-46a349fadb52
 
-[[↑] Back to top](#table-of-contents)
 
 ### What is the extent of your experience with Promises and/or their polyfills?
 
@@ -995,7 +976,6 @@ Some common polyfills are `$.deferred`, Q and Bluebird but not all of them compl
 
 - https://medium.com/javascript-scene/master-the-javascript-interview-what-is-a-promise-27fc71e77261
 
-[[↑] Back to top](#table-of-contents)
 
 ### What are the pros and cons of using Promises instead of callbacks?
 
@@ -1019,8 +999,6 @@ Some common polyfills are `$.deferred`, Q and Bluebird but not all of them compl
 ###### References
 
 - https://github.com/getify/You-Dont-Know-JS/blob/master/async%20%26%20performance/ch3.md
-
-[[↑] Back to top](#table-of-contents)
 
 ### What are some of the advantages/disadvantages of writing JavaScript code in a language that compiles to JavaScript?
 
@@ -1048,7 +1026,6 @@ Practically, ES2015 has vastly improved JavaScript and made it much nicer to wri
 
 - https://softwareengineering.stackexchange.com/questions/72569/what-are-the-pros-and-cons-of-coffeescript
 
-[[↑] Back to top](#table-of-contents)
 
 ### What tools and techniques do you use for debugging JavaScript code?
 
@@ -1067,7 +1044,6 @@ Practically, ES2015 has vastly improved JavaScript and made it much nicer to wri
 - https://hackernoon.com/twelve-fancy-chrome-devtools-tips-dc1e39d10d9d
 - https://raygun.com/blog/javascript-debugging/
 
-[[↑] Back to top](#table-of-contents)
 
 ### What language constructions do you use for iterating over object properties and array items?
 
@@ -1100,7 +1076,6 @@ for (let [index, elem] of arr.entries()) {
 - http://2ality.com/2015/08/getting-started-es6.html#from-for-to-foreach-to-for-of
 - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/entries
 
-[[↑] Back to top](#table-of-contents)
 
 ### Explain the difference between mutable and immutable objects.
 
@@ -1186,8 +1161,6 @@ Freezing an object does not allow new properties to be added to an object and pr
 
 - https://stackoverflow.com/questions/1863515/pros-cons-of-immutability-vs-mutability
 
-[[↑] Back to top](#table-of-contents)
-
 #### How can you achieve immutability in your own code?
 
 One way to achieve immutability is to use libraries like [immutable.js](http://facebook.github.io/immutable-js/), [mori](https://github.com/swannodette/mori) or [immer](https://github.com/immerjs/immer).
@@ -1213,15 +1186,12 @@ const alienJohn = {...john, race: 'alien'}; // {race: "alien", name: "John"}
 - https://www.sitepoint.com/immutability-javascript/
 - https://wecodetheweb.com/2016/02/12/immutable-javascript-using-es6-and-beyond/
 
-[[↑] Back to top](#table-of-contents)
-
 ### Explain the difference between synchronous and asynchronous functions.
 
 Synchronous functions are blocking while asynchronous functions are not. In synchronous functions, statements complete before the next statement is run. In this case, the program is evaluated exactly in order of the statements and execution of the program is paused if one of the statements take a very long time.
 
 Asynchronous functions usually accept a callback as a parameter and execution continue on the next line immediately after the asynchronous function is invoked. The callback is only invoked when the asynchronous operation is complete and the call stack is empty. Heavy duty operations such as loading data from a web server or querying a database should be done asynchronously so that the main thread can continue executing other operations instead of blocking until that long operation to complete (in the case of browsers, the UI will freeze).
 
-[[↑] Back to top](#table-of-contents)
 
 ### What is event loop? What is the difference between call stack and task queue?
 
@@ -1233,7 +1203,6 @@ If you haven't already checked out Philip Robert's [talk on the Event Loop](http
 
 - https://2014.jsconf.eu/speakers/philip-roberts-what-the-heck-is-the-event-loop-anyway.html
 
-[[↑] Back to top](#table-of-contents)
 
 ### Explain the differences on the usage of `foo` between `function foo() {}` and `var foo = function() {}`
 
@@ -1312,13 +1281,11 @@ It's much more verbose to use inheritance in ES5 and the ES6 version is easier t
 - https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Objects/Inheritance
 - https://eli.thegreenplace.net/2013/10/22/classical-inheritance-in-javascript-es5
 
-[[↑] Back to top](#table-of-contents)
 
 ### Can you offer a use case for the new arrow => function syntax? How does this new syntax differ from other functions?
 
 One obvious benefit of arrow functions is to simplify the syntax needed to create functions, without a need for the `function` keyword. The `this` within arrow functions is also bound to the enclosing scope which is different compared to regular functions where the `this` is determined by the object calling it. Lexically-scoped `this` is useful when invoking callbacks especially in React components.
 
-[[↑] Back to top](#table-of-contents)
 
 ### What advantage is there for using the arrow syntax for a method in a constructor?
 
@@ -1367,7 +1334,6 @@ This can be particularly helpful in React class components. If you define a clas
 - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions
 - https://medium.com/@machnicki/handle-events-in-react-with-arrow-functions-ede88184bbb
 
-[[↑] Back to top](#table-of-contents)
 
 ### What is the definition of a higher-order function?
 
@@ -1409,7 +1375,6 @@ transformNamesToUppercase(names); // ['IRISH', 'DAISY', 'ANNA']
 - https://hackernoon.com/effective-functional-javascript-first-class-and-higher-order-functions-713fde8df50a
 - https://eloquentjavascript.net/05_higher_order.html
 
-[[↑] Back to top](#table-of-contents)
 
 ### ES6 Template Literals offer a lot of flexibility in generating strings, can you give an example?
 
@@ -1476,7 +1441,6 @@ document.body.innerHTML = `
 
 - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals
 
-[[↑] Back to top](#table-of-contents)
 
 ### Can you give an example of a curry function and why this syntax offers an advantage?
 
@@ -1514,7 +1478,6 @@ var result = [0, 1, 2, 3, 4, 5].map(addFive); // [5, 6, 7, 8, 9, 10]
 
 - https://hackernoon.com/currying-in-js-d9ddc64f162e
 
-[[↑] Back to top](#table-of-contents)
 
 ### What are the benefits of using spread syntax and how is it different from rest syntax?
 
@@ -1560,7 +1523,6 @@ const {e, f, ...others} = {
 - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/rest_parameters
 - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment
 
-[[↑] Back to top](#table-of-contents)
 
 ### How can you share code between files?
 
@@ -1572,7 +1534,6 @@ On the server (Node.js), the common way has been to use CommonJS. Each file is t
 
 ES2015 defines a module syntax which aims to replace both AMD and CommonJS. This will eventually be supported in both browser and Node environments.
 
-[[↑] Back to top](#table-of-contents)
 
 ###### References
 
@@ -1587,8 +1548,6 @@ Static class members (properties/methods) are not tied to a specific instance of
 ###### References
 
 - https://stackoverflow.com/questions/21155438/when-to-use-static-variables-methods-and-when-to-use-instance-variables-methods
-
-[[↑] Back to top](#table-of-contents)
 
 ### Other Answers
 
