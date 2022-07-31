@@ -186,15 +186,58 @@ A closure gives you access to an outer function’s scope from an inner function
 **Why would you use one?**
 
 - Data privacy / emulating private methods with closures. Commonly used in the [module pattern](https://addyosmani.com/resources/essentialjsdesignpatterns/book/#modulepatternjavascript).
-- [Partial applications or currying](https://medium.com/javascript-scene/curry-or-partial-application-8150044c78b8#.l4b6l1i3x).
 When you use closures for data privacy, the enclosed variables are only in scope within the containing (outer) function. You can’t get at the data from an outside scope
-
 
 ###### References
 
 - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures
 - https://medium.com/javascript-scene/master-the-javascript-interview-what-is-a-closure-b2f0d2152b36
 
+### What's the difference between a variable that is: `null`, `undefined` or undeclared? How would you go about checking for any of these states?
+
+**Undeclared** variables are created when you assign a value to an identifier that is not previously created using `var`, `let` or `const`. Undeclared variables will be defined globally, outside of the current scope. In strict mode, a `ReferenceError` will be thrown when you try to assign to an undeclared variable. Undeclared variables are bad just like how global variables are bad. Avoid them at all cost! To check for them, wrap its usage in a `try`/`catch` block.
+
+```js
+function foo() {
+  x = 1; // Throws a ReferenceError in strict mode
+}
+
+foo();
+console.log(x); // 1
+```
+
+A variable that is `undefined` is a variable that has been declared, but not assigned a value. It is of type `undefined`. If a function does not return any value as the result of executing it is assigned to a variable, the variable also has the value of `undefined`. To check for it, compare using the strict equality (`===`) operator or `typeof` which will give the `'undefined'` string. Note that you should not be using the abstract equality operator to check, as it will also return `true` if the value is `null`.
+
+```js
+var foo;
+console.log(foo); // undefined
+console.log(foo === undefined); // true
+console.log(typeof foo === 'undefined'); // true
+
+console.log(foo == null); // true. Wrong, don't use this to check!
+
+function bar() {}
+var baz = bar();
+console.log(baz); // undefined
+```
+
+A variable that is `null` will have been explicitly assigned to the `null` value. It represents no value and is different from `undefined` in the sense that it has been explicitly assigned. To check for `null,` simply compare using the strict equality operator. Note that like the above, you should not be using the abstract equality operator (`==`) to check, as it will also return `true` if the value is `undefined`.
+
+```js
+var foo = null;
+console.log(foo === null); // true
+console.log(typeof foo === 'object'); // true
+
+console.log(foo == undefined); // true. Wrong, don't use this to check!
+```
+
+As a personal habit, I never leave my variables undeclared or unassigned. I will explicitly assign `null` to them after declaring if I don't intend to use it yet. If you use a linter in your workflow, it will usually also be able to check that you are not referencing undeclared variables.
+
+###### References
+
+- https://stackoverflow.com/questions/15985875/effect-of-declared-and-undeclared-variables
+- https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/undefined
+- 
 
 ### Explain how `this` works in JavaScript
 
@@ -338,55 +381,6 @@ console.log(foo); // undefined
 
 - http://lucybain.com/blog/2014/immediately-invoked-function-expression/
 - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/void
-
-[[↑] Back to top](#table-of-contents)
-
-### What's the difference between a variable that is: `null`, `undefined` or undeclared? How would you go about checking for any of these states?
-
-**Undeclared** variables are created when you assign a value to an identifier that is not previously created using `var`, `let` or `const`. Undeclared variables will be defined globally, outside of the current scope. In strict mode, a `ReferenceError` will be thrown when you try to assign to an undeclared variable. Undeclared variables are bad just like how global variables are bad. Avoid them at all cost! To check for them, wrap its usage in a `try`/`catch` block.
-
-```js
-function foo() {
-  x = 1; // Throws a ReferenceError in strict mode
-}
-
-foo();
-console.log(x); // 1
-```
-
-A variable that is `undefined` is a variable that has been declared, but not assigned a value. It is of type `undefined`. If a function does not return any value as the result of executing it is assigned to a variable, the variable also has the value of `undefined`. To check for it, compare using the strict equality (`===`) operator or `typeof` which will give the `'undefined'` string. Note that you should not be using the abstract equality operator to check, as it will also return `true` if the value is `null`.
-
-```js
-var foo;
-console.log(foo); // undefined
-console.log(foo === undefined); // true
-console.log(typeof foo === 'undefined'); // true
-
-console.log(foo == null); // true. Wrong, don't use this to check!
-
-function bar() {}
-var baz = bar();
-console.log(baz); // undefined
-```
-
-A variable that is `null` will have been explicitly assigned to the `null` value. It represents no value and is different from `undefined` in the sense that it has been explicitly assigned. To check for `null,` simply compare using the strict equality operator. Note that like the above, you should not be using the abstract equality operator (`==`) to check, as it will also return `true` if the value is `undefined`.
-
-```js
-var foo = null;
-console.log(foo === null); // true
-console.log(typeof foo === 'object'); // true
-
-console.log(foo == undefined); // true. Wrong, don't use this to check!
-```
-
-As a personal habit, I never leave my variables undeclared or unassigned. I will explicitly assign `null` to them after declaring if I don't intend to use it yet. If you use a linter in your workflow, it will usually also be able to check that you are not referencing undeclared variables.
-
-###### References
-
-- https://stackoverflow.com/questions/15985875/effect-of-declared-and-undeclared-variables
-- https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/undefined
-
-[[↑] Back to top](#table-of-contents)
 
 
 ### Can you describe the main difference between a `.forEach` loop and a `.map()` loop and why you would pick one versus the other?
