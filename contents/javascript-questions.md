@@ -1,6 +1,38 @@
+### Phases of JavaScript Event
+There are three different phases during lifecycle of an JavaScript event.
+
+Capturing Phase
+Target Phase
+Bubbling Phase
+
+Capturing Phase is when event goes down to the element. Target phase is when event reach the element and Bubbling phase is when the event bubbles up from the element.
+
+<!DOCTYPE html>
+<html>
+
+<body>
+	<div class="container">
+		<button id="btn">Click Me!</button>
+	</div>
+	
+	<script type="text/javascript">
+		document.getElementById('btn')
+			.addEventListener('click',
+			function () {
+				alert('Button Clicked!');
+			})
+	</script>
+</body>
+
+</html>
+
+
+
+
+
 ### Explain event delegation
 
-Event delegation is a technique involving adding event listeners to a parent element instead of adding them to the descendant elements. The listener will fire whenever the event is triggered on the descendant elements due to event bubbling up the DOM. The benefits of this technique are:
+Event delegation is a technique involving adding event listeners to a parent element instead of adding them to the descendant elements. Event Delegation is basically a pattern to handle events efficiently. Instead of adding an event listener to each and every similar element, we can add an event listener to a parent element and call an event on a particular target using the .target property of the event object.
 
 - Memory footprint goes down because only one single handler is needed on the parent element, rather than having to attach event handlers on each descendant.
 - There is no need to unbind the handler from elements that are removed and to bind the event for new elements.
