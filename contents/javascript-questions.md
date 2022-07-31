@@ -163,6 +163,22 @@ console.log(q); // true
 
 [[↑] Back to top](#table-of-contents)
 
+## What is a closure, and how/why would you use one?
+
+A closure is the combination of a function and the lexical environment within which that function was declared. The word "lexical" refers to the fact that lexical scoping uses the location where a variable is declared within the source code to determine where that variable is available. Closures are functions that have access to the outer (enclosing) function's variables—scope chain even after the outer function has returned.
+
+**Why would you use one?**
+
+- Data privacy / emulating private methods with closures. Commonly used in the [module pattern](https://addyosmani.com/resources/essentialjsdesignpatterns/book/#modulepatternjavascript).
+- [Partial applications or currying](https://medium.com/javascript-scene/curry-or-partial-application-8150044c78b8#.l4b6l1i3x).
+
+###### References
+
+- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures
+- https://medium.com/javascript-scene/master-the-javascript-interview-what-is-a-closure-b2f0d2152b36
+
+[[↑] Back to top](#table-of-contents)
+
 ### Explain how `this` works in JavaScript
 
 A hand-wavey explanation is that the value of `this` depends on how the function is called. I have read many explanations on `this` online, and I found [Arnav Aggrawal](https://medium.com/@arnav_aggarwal)'s explanation to be the clearest. The following rules are applied:
@@ -355,21 +371,6 @@ As a personal habit, I never leave my variables undeclared or unassigned. I will
 
 [[↑] Back to top](#table-of-contents)
 
-### What is a closure, and how/why would you use one?
-
-A closure is the combination of a function and the lexical environment within which that function was declared. The word "lexical" refers to the fact that lexical scoping uses the location where a variable is declared within the source code to determine where that variable is available. Closures are functions that have access to the outer (enclosing) function's variables—scope chain even after the outer function has returned.
-
-**Why would you use one?**
-
-- Data privacy / emulating private methods with closures. Commonly used in the [module pattern](https://addyosmani.com/resources/essentialjsdesignpatterns/book/#modulepatternjavascript).
-- [Partial applications or currying](https://medium.com/javascript-scene/curry-or-partial-application-8150044c78b8#.l4b6l1i3x).
-
-###### References
-
-- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures
-- https://medium.com/javascript-scene/master-the-javascript-interview-what-is-a-closure-b2f0d2152b36
-
-[[↑] Back to top](#table-of-contents)
 
 ### Can you describe the main difference between a `.forEach` loop and a `.map()` loop and why you would pick one versus the other?
 
