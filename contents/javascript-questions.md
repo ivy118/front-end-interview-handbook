@@ -9,6 +9,7 @@ Capturing Phase is when event goes down to the element. Target phase is when eve
 
 - you can add multiple event handlers to one single element.
 
+```html
 <body>
 	<div class = "grandparent">
 		<div class = "parent">
@@ -16,7 +17,7 @@ Capturing Phase is when event goes down to the element. Target phase is when eve
 		</div>
 	</div>
 </body>
-
+```
 
 // javaScript file:
 ```js
