@@ -293,8 +293,87 @@ ES6 allows you to use [arrow functions](http://2ality.com/2017/12/alternate-this
 - https://codeburst.io/the-simple-rules-to-this-in-javascript-35d97f31bde3
 - https://stackoverflow.com/a/3127440/1751946
 
+## What are the differences between variables created using `let`, `var` or `const`?
 
-### Explain how prototypal inheritance works
+Variables declared using the `var` keyword are scoped to the function in which they are created, or if created outside of any function, to the global object. `let` and `const` are _block scoped_, meaning they are only accessible within the nearest set of curly braces (function, if-else block, or for-loop).
+
+```js
+function foo() {
+  // All variables are accessible within functions.
+  var bar = 'bar';
+  let baz = 'baz';
+  const qux = 'qux';
+
+  console.log(bar); // bar
+  console.log(baz); // baz
+  console.log(qux); // qux
+}
+
+console.log(bar); // ReferenceError: bar is not defined
+console.log(baz); // ReferenceError: baz is not defined
+console.log(qux); // ReferenceError: qux is not defined
+```
+
+```js
+if (true) {
+  var bar = 'bar';
+  let baz = 'baz';
+  const qux = 'qux';
+}
+
+// var declared variables are accessible anywhere in the function scope.
+console.log(bar); // bar
+// let and const defined variables are not accessible outside of the block they were defined in.
+console.log(baz); // ReferenceError: baz is not defined
+console.log(qux); // ReferenceError: qux is not defined
+```
+
+`var` allows variables to be hoisted, meaning they can be referenced in code before they are declared. `let` and `const` will not allow this, instead throwing an error.
+
+```js
+console.log(foo); // undefined
+
+var foo = 'foo';
+
+console.log(baz); // ReferenceError: can't access lexical declaration 'baz' before initialization
+
+let baz = 'baz';
+
+console.log(bar); // ReferenceError: can't access lexical declaration 'bar' before initialization
+
+const bar = 'bar';
+```
+
+Redeclaring a variable with `var` will not throw an error, but `let` and `const` will.
+
+```js
+var foo = 'foo';
+var foo = 'bar';
+console.log(foo); // "bar"
+
+let baz = 'baz';
+let baz = 'qux'; // Uncaught SyntaxError: Identifier 'baz' has already been declared
+```
+
+`let` and `const` differ in that `let` allows reassigning the variable's value while `const` does not.
+
+```js
+// This is fine.
+let foo = 'foo';
+foo = 'bar';
+
+// This causes an exception.
+const baz = 'baz';
+baz = 'qux';
+```
+
+###### References
+
+- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/let
+- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/var
+- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/const
+
+## Explain how prototypal inheritance works
 
 This is an extremely common JavaScript interview question. All JavaScript objects have a `__proto__` property with the exception of objects created with `__Object.create(null)__`, that is a reference to another object, which is called the object's "prototype". When a property is accessed on an object and if the property is not found on that object, the JavaScript engine looks at the object's `__proto__`, and the `__proto__`'s `__proto__` and so on, until it finds the property defined on one of the `__proto__`s or until it reaches the end of the prototype chain. This behavior simulates classical inheritance, but it is really more of [delegation than inheritance](https://davidwalsh.name/javascript-objects).
 
@@ -389,7 +468,6 @@ I'm glad that with ES2015 modules, that has support for both synchronous and asy
 - https://auth0.com/blog/javascript-module-systems-showdown/
 - https://stackoverflow.com/questions/16521471/relation-between-commonjs-amd-and-requirejs
 
-[[↑] Back to top](#table-of-contents)
 
 ### Explain why the following doesn't work as an IIFE: `function foo(){ }();`. What needs to be changed to properly make it an IIFE?
 
@@ -1180,90 +1258,6 @@ var foo = function () {
 ###### References
 
 - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function
-
-[[↑] Back to top](#table-of-contents)
-
-### What are the differences between variables created using `let`, `var` or `const`?
-
-Variables declared using the `var` keyword are scoped to the function in which they are created, or if created outside of any function, to the global object. `let` and `const` are _block scoped_, meaning they are only accessible within the nearest set of curly braces (function, if-else block, or for-loop).
-
-```js
-function foo() {
-  // All variables are accessible within functions.
-  var bar = 'bar';
-  let baz = 'baz';
-  const qux = 'qux';
-
-  console.log(bar); // bar
-  console.log(baz); // baz
-  console.log(qux); // qux
-}
-
-console.log(bar); // ReferenceError: bar is not defined
-console.log(baz); // ReferenceError: baz is not defined
-console.log(qux); // ReferenceError: qux is not defined
-```
-
-```js
-if (true) {
-  var bar = 'bar';
-  let baz = 'baz';
-  const qux = 'qux';
-}
-
-// var declared variables are accessible anywhere in the function scope.
-console.log(bar); // bar
-// let and const defined variables are not accessible outside of the block they were defined in.
-console.log(baz); // ReferenceError: baz is not defined
-console.log(qux); // ReferenceError: qux is not defined
-```
-
-`var` allows variables to be hoisted, meaning they can be referenced in code before they are declared. `let` and `const` will not allow this, instead throwing an error.
-
-```js
-console.log(foo); // undefined
-
-var foo = 'foo';
-
-console.log(baz); // ReferenceError: can't access lexical declaration 'baz' before initialization
-
-let baz = 'baz';
-
-console.log(bar); // ReferenceError: can't access lexical declaration 'bar' before initialization
-
-const bar = 'bar';
-```
-
-Redeclaring a variable with `var` will not throw an error, but `let` and `const` will.
-
-```js
-var foo = 'foo';
-var foo = 'bar';
-console.log(foo); // "bar"
-
-let baz = 'baz';
-let baz = 'qux'; // Uncaught SyntaxError: Identifier 'baz' has already been declared
-```
-
-`let` and `const` differ in that `let` allows reassigning the variable's value while `const` does not.
-
-```js
-// This is fine.
-let foo = 'foo';
-foo = 'bar';
-
-// This causes an exception.
-const baz = 'baz';
-baz = 'qux';
-```
-
-###### References
-
-- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/let
-- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/var
-- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/const
-
-[[↑] Back to top](#table-of-contents)
 
 ### What are the differences between ES6 class and ES5 function constructors?
 
