@@ -231,6 +231,8 @@ console.log(typeof foo === 'object'); // true
 console.log(foo == undefined); // true. Wrong, don't use this to check!
 ```
 
+** notice that null is an object in JS.
+
 As a personal habit, I never leave my variables undeclared or unassigned. I will explicitly assign `null` to them after declaring if I don't intend to use it yet. If you use a linter in your workflow, it will usually also be able to check that you are not referencing undeclared variables.
 
 ###### References
