@@ -57,7 +57,7 @@ Syntax: parent.removeEventListener("click", printHi)
 
 ### Explain event delegation
 
-Event delegation is a technique involving adding event listeners to a parent element instead of adding them to the descendant elements. Event Delegation is basically a pattern to handle events efficiently. Instead of adding an event listener to each and every similar element, we can add an event listener to a parent element and call an event on a particular target using the .target property of the event object.
+Event delegation is a technique involving adding event listeners to a parent element instead of adding them to the descendant elements. Event Delegation is basically a pattern to handle events efficiently. That event listener analyzes bubbled events to find a match on child elements.
 
 - Memory footprint goes down because only one single handler is needed on the parent element, rather than having to attach event handlers on each descendant.
 - There is no need to unbind the handler from elements that are removed and to bind the event for new elements.
