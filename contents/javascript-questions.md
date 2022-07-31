@@ -7,6 +7,7 @@ Bubbling Phase
 
 Capturing Phase is when event goes down to the element. Target phase is when event reach the element and Bubbling phase is when the event bubbles up from the element.
 
+```js
 <!DOCTYPE html>
 <html>
 
@@ -25,7 +26,7 @@ Capturing Phase is when event goes down to the element. Target phase is when eve
 </body>
 
 </html>
-
+```
 
 
 
