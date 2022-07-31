@@ -272,15 +272,54 @@ console.log(double); // [2, 4, 6]
 - https://stackoverflow.com/questions/10273185/what-are-the-benefits-to-using-anonymous-functions-instead-of-named-functions-fo
 
 ### Explain how `this` works in JavaScript
+'this' is the object that is executing the current function .
 
-A hand-wavey explanation is that the value of `this` depends on how the function is called. I have read many explanations on `this` online, and I found [Arnav Aggrawal](https://medium.com/@arnav_aggarwal)'s explanation to be the clearest. The following rules are applied:
+1. If a function is called as a method, such as `obj.method()` — `this` is the object that the function is a property of.
+2. If the funtion is a regualr function, 'this' refers to the global object, which is the window object in the browser. If in strict mode (`'use strict'`), `this` will be `undefined` instead of the global object.
+3. If the `new` keyword is used when calling the function, `this` inside the function is a brand new object.
+Ex:
+```js
+function Video(title) {
+	this.title = title;
+	console.log(this)
+}
 
-1. If the `new` keyword is used when calling the function, `this` inside the function is a brand new object.
-2. If `apply`, `call`, or `bind` are used to call/create a function, `this` inside the function is the object that is passed in as the argument.
-3. If a function is called as a method, such as `obj.method()` — `this` is the object that the function is a property of.
-4. If a function is invoked as a free function invocation, meaning it was invoked without any of the conditions present above, `this` is the global object. In a browser, it is the `window` object. If in strict mode (`'use strict'`), `this` will be `undefined` instead of the global object.
-5. If multiple of the above rules apply, the rule that is higher wins and will set the `this` value.
-6. If the function is an ES2015 arrow function, it ignores all the rules above and receives the `this` value of its surrounding scope at the time it is created.
+const v = new Video('b'); // {}
+```
+
+4. If the function is an ES2015 arrow function, it's treated like a regular function, so 'this' would represent the window object.
+```js
+const video = {
+	title: 'a',
+	tags: ['a','b','c'],
+	showTags() {
+		this.tags.forEach(function(tag) {
+			console.log(this, tag);
+		});
+	}
+};
+
+video.showTags(); //window
+
+How do we actually have access to the video object inside of the arrow function then? 
+we can pass in the object we want to refer to as the second parameter of the showTags() method.
+
+```js
+const video = {
+	title: 'a',
+	tags: ['a','b','c'],
+	showTags() {
+		this.tags.forEach(function(tag) {
+			console.log(this, tag);
+		}, this);
+	}
+};
+
+video.showTags(); //video
+```
+
+5. If `apply`, `call`, or `bind` are used to call/create a function, `this` inside the function is the object that is passed in as the argument.
+7. If multiple of the above rules apply, the rule that is higher wins and will set the `this` value.
 
 For an in-depth explanation, do check out his [article on Medium](https://codeburst.io/the-simple-rules-to-this-in-javascript-35d97f31bde3).
 
