@@ -19,6 +19,7 @@ Capturing Phase is when event goes down to the element. Target phase is when eve
 
 
 // javaScript file:
+```js
 const grandparent = document.querySelector(".grandparent")
 const parent = document.querySelector(".parent")
 const child = document.querySelector(".child")
@@ -34,8 +35,7 @@ parent.addEventListener("click", e => {
 child.addEventListener("click", e => {
 	console.log("child 1")
 })
-
-
+```
 
 ### Explain event delegation
 
