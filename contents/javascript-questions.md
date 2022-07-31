@@ -238,7 +238,7 @@ console.log(foo == undefined); // true. Wrong, don't use this to check!
 - https://stackoverflow.com/questions/15985875/effect-of-declared-and-undeclared-variables
 - https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/undefined
 
-### What's a typical use case for anonymous functions?
+## What's a typical use case for anonymous functions?
 
 They can be used in IIFEs to encapsulate some code within a local scope so that variables declared in it do not leak to the global scope.
 
