@@ -1,14 +1,3 @@
----
-title: JavaScript trivia questions in front end interviews
-sidebar_label: JavaScript questions
----
-
-Answers to [Front-end Job Interview Questions - JS Questions](https://github.com/h5bp/Front-end-Developer-Interview-Questions/blob/master/src/questions/javascript-questions.md). Pull requests for suggestions and corrections are welcome!
-
-import TOCInline from '@theme/TOCInline';
-
-<TOCInline toc={toc} />
-
 ### Explain event delegation
 
 Event delegation is a technique involving adding event listeners to a parent element instead of adding them to the descendant elements. The listener will fire whenever the event is triggered on the descendant elements due to event bubbling up the DOM. The benefits of this technique are:
