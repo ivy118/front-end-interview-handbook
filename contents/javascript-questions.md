@@ -315,10 +315,12 @@ console.log(qux); // ReferenceError: qux is not defined
 ```
 
 ```js
-if (true) {
-  var bar = 'bar';
-  let baz = 'baz';
-  const qux = 'qux';
+function print() {
+	if (true) {
+	  var bar = 'bar';
+	  let baz = 'baz';
+	  const qux = 'qux';
+	}
 }
 
 // var declared variables are accessible anywhere in the function scope.
