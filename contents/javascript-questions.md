@@ -82,7 +82,7 @@ document.addEventListener("click", e => {
 
 ## What is `"use strict";`? What are the advantages and disadvantages to using it?
 
-'use strict' is a statement used to enable strict mode to entire scripts or individual functions. Strict mode is a way to opt into a restricted variant of JavaScript.
+'use strict' changes previously accepted "bad syntax" into real errors. Strict mode is a way to opt into a restricted variant of JavaScript.
 
 Advantages:
 
@@ -101,6 +101,16 @@ Disadvantages:
 - Concatenation of scripts written in different strict modes might cause issues.
 
 Overall, I think the benefits outweigh the disadvantages, and I never had to rely on the features that strict mode blocks. I would recommend using strict mode.
+
+```js
+x = 3.14;       // This will not cause an error.
+myFunction();
+
+function myFunction() {
+  "use strict";
+  y = 3.14;   // This will cause an error
+}
+```
 
 ###### References
 
