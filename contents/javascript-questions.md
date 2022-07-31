@@ -78,7 +78,6 @@ document.addEventListener("click", e => {
 - https://davidwalsh.name/event-delegate
 - https://stackoverflow.com/questions/1687296/what-is-dom-event-delegation
 
-[[↑] Back to top](#table-of-contents)
 
 ## What is `"use strict";`? What are the advantages and disadvantages to using it?
 
@@ -117,7 +116,6 @@ function myFunction() {
 - http://2ality.com/2011/10/strict-mode-hatred.html
 - http://lucybain.com/blog/2014/js-use-strict/
 
-[[↑] Back to top](#table-of-contents)
 
 ## Can you give an example for destructuring an object or an array?
 
@@ -161,23 +159,42 @@ console.log(q); // true
 - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment
 - https://ponyfoo.com/articles/es6-destructuring-in-depth
 
-[[↑] Back to top](#table-of-contents)
 
 ## What is a closure, and how/why would you use one?
 
-A closure is the combination of a function and the lexical environment within which that function was declared. The word "lexical" refers to the fact that lexical scoping uses the location where a variable is declared within the source code to determine where that variable is available. Closures are functions that have access to the outer (enclosing) function's variables—scope chain even after the outer function has returned.
+A closure is the combination of a function and the lexical environment within which that function was declared. Closures are functions that have access to the outer (enclosing) function's variables—scope chain even after the outer function has returned. 
 
+For example:
+
+```js
+function outerFunction(outerVariable) {
+	return function innerFunction(innerVariable) {
+		console.log("outer Variable: " + outerVariable) 
+		console.log("inner Variable: " + innerVariable)
+	}
+}
+
+const newFunc = outerFunction('outside');
+newFunc('inside'); // outer Variable: outside  inner Variable: inside
+```
+
+The inner function saves the variables that belongs to the outer function and have access to those variables at all times. 
+
+Closures are important because they control what is and isn’t in scope in a particular function, along with which variables are shared between sibling functions in the same containing scope. 
+
+A closure gives you access to an outer function’s scope from an inner function.
 **Why would you use one?**
 
 - Data privacy / emulating private methods with closures. Commonly used in the [module pattern](https://addyosmani.com/resources/essentialjsdesignpatterns/book/#modulepatternjavascript).
 - [Partial applications or currying](https://medium.com/javascript-scene/curry-or-partial-application-8150044c78b8#.l4b6l1i3x).
+When you use closures for data privacy, the enclosed variables are only in scope within the containing (outer) function. You can’t get at the data from an outside scope
+
 
 ###### References
 
 - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures
 - https://medium.com/javascript-scene/master-the-javascript-interview-what-is-a-closure-b2f0d2152b36
 
-[[↑] Back to top](#table-of-contents)
 
 ### Explain how `this` works in JavaScript
 
