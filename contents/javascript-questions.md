@@ -7,27 +7,33 @@ Bubbling Phase
 
 Capturing Phase is when event goes down to the element. Target phase is when event reach the element and Bubbling phase is when the event bubbles up from the element.
 
-```js
-<!DOCTYPE html>
-<html>
+- you can add multiple event handlers to one single element.
 
 <body>
-	<div class="container">
-		<button id="btn">Click Me!</button>
+	<div class = "grandparent">
+		<div class = "parent">
+			<div class = "child"></div>
+		</div>
 	</div>
-	
-	<script type="text/javascript">
-		document.getElementById('btn')
-			.addEventListener('click',
-			function () {
-				alert('Button Clicked!');
-			})
-	</script>
 </body>
 
-</html>
-```
 
+// javaScript file:
+const grandparent = document.querySelector(".grandparent")
+const parent = document.querySelector(".parent")
+const child = document.querySelector(".child")
+
+grandparent.addEventListener("click", e => {
+	console.log("Grandparent 1")
+})
+
+parent.addEventListener("click", e => {
+	console.log("parent 1")
+})
+
+child.addEventListener("click", e => {
+	console.log("child 1")
+})
 
 
 
