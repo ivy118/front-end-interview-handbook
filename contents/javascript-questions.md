@@ -233,13 +233,43 @@ console.log(foo == undefined); // true. Wrong, don't use this to check!
 
 ** notice that null is an object in JS.
 
-As a personal habit, I never leave my variables undeclared or unassigned. I will explicitly assign `null` to them after declaring if I don't intend to use it yet. If you use a linter in your workflow, it will usually also be able to check that you are not referencing undeclared variables.
-
 ###### References
 
 - https://stackoverflow.com/questions/15985875/effect-of-declared-and-undeclared-variables
 - https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/undefined
-- 
+
+### What's a typical use case for anonymous functions?
+
+They can be used in IIFEs to encapsulate some code within a local scope so that variables declared in it do not leak to the global scope.
+
+```js
+(function () {
+  // Some code here.
+})();
+```
+
+As a callback that is used once and does not need to be used anywhere else. The code will seem more self-contained and readable when handlers are defined right inside the code calling them, rather than having to search elsewhere to find the function body.
+
+```js
+setTimeout(function () {
+  console.log('Hello world!');
+}, 1000);
+```
+
+Arguments to functional programming constructs or Lodash (similar to callbacks).
+
+```js
+const arr = [1, 2, 3];
+const double = arr.map(function (el) {
+  return el * 2;
+});
+console.log(double); // [2, 4, 6]
+```
+
+###### References
+
+- https://www.quora.com/What-is-a-typical-usecase-for-anonymous-functions
+- https://stackoverflow.com/questions/10273185/what-are-the-benefits-to-using-anonymous-functions-instead-of-named-functions-fo
 
 ### Explain how `this` works in JavaScript
 
@@ -263,7 +293,6 @@ ES6 allows you to use [arrow functions](http://2ality.com/2017/12/alternate-this
 - https://codeburst.io/the-simple-rules-to-this-in-javascript-35d97f31bde3
 - https://stackoverflow.com/a/3127440/1751946
 
-[[↑] Back to top](#table-of-contents)
 
 ### Explain how prototypal inheritance works
 
@@ -346,7 +375,6 @@ child.constructor.name;
 - https://crockford.com/javascript/prototypal.html
 - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Inheritance_and_the_prototype_chain
 
-[[↑] Back to top](#table-of-contents)
 
 ### What do you think of AMD vs CommonJS?
 
@@ -424,42 +452,6 @@ The main difference between `.forEach` and `.map()` is that `.map()` returns a n
 
 - https://codeburst.io/javascript-map-vs-foreach-f38111822c0f
 
-[[↑] Back to top](#table-of-contents)
-
-### What's a typical use case for anonymous functions?
-
-They can be used in IIFEs to encapsulate some code within a local scope so that variables declared in it do not leak to the global scope.
-
-```js
-(function () {
-  // Some code here.
-})();
-```
-
-As a callback that is used once and does not need to be used anywhere else. The code will seem more self-contained and readable when handlers are defined right inside the code calling them, rather than having to search elsewhere to find the function body.
-
-```js
-setTimeout(function () {
-  console.log('Hello world!');
-}, 1000);
-```
-
-Arguments to functional programming constructs or Lodash (similar to callbacks).
-
-```js
-const arr = [1, 2, 3];
-const double = arr.map(function (el) {
-  return el * 2;
-});
-console.log(double); // [2, 4, 6]
-```
-
-###### References
-
-- https://www.quora.com/What-is-a-typical-usecase-for-anonymous-functions
-- https://stackoverflow.com/questions/10273185/what-are-the-benefits-to-using-anonymous-functions-instead-of-named-functions-fo
-
-[[↑] Back to top](#table-of-contents)
 
 ### How do you organize your code? (module pattern, classical inheritance?)
 
@@ -480,8 +472,6 @@ Host objects are provided by the runtime environment (browser or Node), such as 
 ###### References
 
 - https://stackoverflow.com/questions/7614317/what-is-the-difference-between-native-objects-and-host-objects
-
-[[↑] Back to top](#table-of-contents)
 
 ### Difference between: `function Person(){}`, `var person = Person()`, and `var person = new Person()`?
 
