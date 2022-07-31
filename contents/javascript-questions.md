@@ -38,6 +38,15 @@ child.addEventListener("click", e => {
 })
 ```
 
+Since the child is in the parent, when we click on the child, we technically clicked on all of the parent element too so all parent listeners will fire too: this is called event bubbling. 
+
+Before the bubbling event happens, the events actually travels from outward to inward, then travels back from inward to outward. 
+
+Event capturing is the opposite: it moves from the outward to most inward element.
+
+if you want you event to be a capture event, you can pass in a third parameter to the event listner, like {capture: true}.
+
+
 ### Explain event delegation
 
 Event delegation is a technique involving adding event listeners to a parent element instead of adding them to the descendant elements. Event Delegation is basically a pattern to handle events efficiently. Instead of adding an event listener to each and every similar element, we can add an event listener to a parent element and call an event on a particular target using the .target property of the event object.
