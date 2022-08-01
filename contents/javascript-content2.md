@@ -67,6 +67,36 @@ function findLargest(x, y, ...more) {
 Implicit Parameter: 'this' is a implicit parameter for each function, also arguments. console.log(arguments) will give you the arguments passed into the function.
 
 
+## Call vs Apply vs Bind 
+you can write object methods separately and use call, apply, or bind to use the methods on a certain object. 
+
+
+Call and apply both attach a function to an object, but the difference is call takes multiple parameters after the object parameter, while apply takes only 1 array as the second argument.
+For ex: 
+
+```js
+var obj = {num: 2}
+var addToThis = function(a, b) {
+  return this.num + a + b;
+}
+
+// takes 2 arguments: 1: the object to want to apply this function to, 2: the argument you want to pass to this function. 
+addToThis.call(obj, 3, 4); //9
+
+```
+
+bind actually attaches a method to a object, and returns back a function. You can call the returned back function and pass in the arguments. 
+
+For ex: 
+```js
+var obj = {num: 2}
+var addToThis = function(a, b) {
+  return this.num + a + b;
+}
+
+var bound = addToThis.bind(obj);
+console.log(bound(2,3)); //8
+```
 ## Explain how prototypal inheritance works
 
 All JavaScript objects have a `__proto__` property with the exception of objects created with `__Object.create(null)__`, that is a reference to another object, which is called the object's "prototype". When a property is accessed on an object and if the property is not found on that object, the JavaScript engine looks at the object's `__proto__`, and the `__proto__`'s `__proto__` and so on, until it finds the property defined on one of the `__proto__`s or until it reaches the end of the prototype chain. This behavior simulates classical inheritance, but it is really more of [delegation than inheritance](https://davidwalsh.name/javascript-objects).
