@@ -39,6 +39,34 @@ me.printIntroduction();
 
 ```
 
+## Function as first class citizens (whatever you can do with objects, you can also do with functions).
+1. you can assign a function to a variable and turn a function declaration to a function expression.
+2. we can store a function inside an array.
+3. you can pass in a function as a argument to another function.
+4. return a function from another function.
+
+## Default Parameters, Rest Parameters, Implicit Parameters
+There's no overloading in javaScript, no matter how many arguments we pass into the function, the same function will be invoked everytime. 
+
+Default Parameter: if a paramter is not passed into the function, set a default value for the missing parameter. Used if you pass in too little paramters.
+
+Rest Parameters: if you pass in too many parameters, more than the function specified, you can catch all of the parameters with ...theArgs.
+
+-- access it like console.log(theArgs) inside of the function.
+For ex: 
+```js
+function findLargest(x, y, ...more) {
+  let largest = x;
+  for (let i = 0; i < more.length; i++) {
+    if (more[i] > largest) largest = more[i]
+  }
+  if (y > largest) largest = y
+}
+```
+
+Implicit Parameter: 'this' is a implicit parameter for each function, also arguments. console.log(arguments) will give you the arguments passed into the function.
+
+
 ## Explain how prototypal inheritance works
 
 All JavaScript objects have a `__proto__` property with the exception of objects created with `__Object.create(null)__`, that is a reference to another object, which is called the object's "prototype". When a property is accessed on an object and if the property is not found on that object, the JavaScript engine looks at the object's `__proto__`, and the `__proto__`'s `__proto__` and so on, until it finds the property defined on one of the `__proto__`s or until it reaches the end of the prototype chain. This behavior simulates classical inheritance, but it is really more of [delegation than inheritance](https://davidwalsh.name/javascript-objects).
