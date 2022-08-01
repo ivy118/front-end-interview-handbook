@@ -627,7 +627,6 @@ The module pattern is still great, but these days, I use React/Redux which utili
 
 I avoid using classical inheritance where possible. When and if I do, I stick to [these rules](https://medium.com/@dan_abramov/how-to-use-classes-and-sleep-at-night-9af8de78ccb4).
 
-[[↑] Back to top](#table-of-contents)
 
 ### What's the difference between host objects and native objects?
 
@@ -665,7 +664,6 @@ console.log(person.name); // "john"
 
 - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/new
 
-[[↑] Back to top](#table-of-contents)
 
 ### What's the difference between `.call` and `.apply`?
 
@@ -680,7 +678,6 @@ console.log(add.call(null, 1, 2)); // 3
 console.log(add.apply(null, [1, 2])); // 3
 ```
 
-[[↑] Back to top](#table-of-contents)
 
 ### Explain `Function.prototype.bind`.
 
@@ -694,7 +691,6 @@ In my experience, it is most useful for binding the value of `this` in methods o
 
 - https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_objects/Function/bind
 
-[[↑] Back to top](#table-of-contents)
 
 ### When would you use `document.write()`?
 
@@ -747,7 +743,6 @@ This is a browser-reported string that allows the network protocol peers to iden
 - https://stackoverflow.com/questions/20104930/whats-the-difference-between-feature-detection-feature-inference-and-using-th
 - https://developer.mozilla.org/en-US/docs/Web/HTTP/Browser_detection_using_the_user_agent
 
-[[↑] Back to top](#table-of-contents)
 
 ### Explain Ajax in as much detail as possible.
 
@@ -760,7 +755,6 @@ The `XMLHttpRequest` API is frequently used for the asynchronous communication o
 - https://en.wikipedia.org/wiki/Ajax_(programming)
 - https://developer.mozilla.org/en-US/docs/AJAX
 
-[[↑] Back to top](#table-of-contents)
 
 ### What are the advantages and disadvantages of using Ajax?
 
@@ -779,7 +773,6 @@ The `XMLHttpRequest` API is frequently used for the asynchronous communication o
 - Webpages using Ajax to fetch data will likely have to combine the fetched remote data with client-side templates to update the DOM. For this to happen, JavaScript will have to be parsed and executed on the browser, and low-end mobile devices might struggle with this.
 - Basically most of the disadvantages of an SPA.
 
-[[↑] Back to top](#table-of-contents)
 
 ### Explain how JSONP works (and how it's not really Ajax).
 
@@ -813,7 +806,6 @@ These days, [CORS](http://en.wikipedia.org/wiki/Cross-origin_resource_sharing) i
 
 - https://stackoverflow.com/a/2067584/1751946
 
-[[↑] Back to top](#table-of-contents)
 
 ### Have you ever used JavaScript templating? If so, what libraries have you used?
 
