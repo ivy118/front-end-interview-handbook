@@ -1,8 +1,20 @@
 ## Primitive Vs. Objects
+A primitive (primitive value, primitive data type) is data that is not an object and has no methods or properties. There are 7 primitive data types:
 
+string
+number
+bigint
+boolean
+undefined
+symbol
+null
 
+All primitives are immutable; that is, they cannot be altered. It is important not to confuse a primitive itself with a variable assigned a primitive value. 
 
+Primitives have no methods but still behave as if they do. When properties are accessed on primitives, JavaScript auto-boxes the value into a wrapper object and accesses the property on that object instead. When you call methods on primitive, it's treated like an object, and later on convrted back to primitive when the methods is done running.
 
+Objects all have a prototype chain.
+Primitives have an object counter type.
 
 
 ## Object.create()
