@@ -97,7 +97,50 @@ var addToThis = function(a, b) {
 var bound = addToThis.bind(obj);
 console.log(bound(2,3)); //8
 ```
+
+# Object Oriented Programming - JS
+## Creating a constructor function
+```js
+function User(name, interests) {
+  this.name = name;
+  this.interests = interests;
+}
+
+let me = new User("Caleb", [cooking, drawing]);
+let you = new User("Joe", [dancing, singing]);
+
+```
+We do not add methods onto constructor function, since that copies the method for every single object.
+This wastes memory is you have a huge application that have many objects.
+
+## Factory Functions
+```js
+function newUser(name, interests) {
+  let person = {
+    name: name, 
+    interests: interests
+   };
+   return person;
+}
+
+let me = newUser("Caleb", [cooking, drawing]);
+```
+## Proper Way to give object methods when it comes to constructor functions
+We mentioned before that we do not add methods onto constructor function, so the correct way is to add the methods to the parent object for the User.
+```js
+User.prototype.greet = function() {
+  console.log("my name is " + this.name,  this.interests);
+
+```
+Here, only one method is created.
+
+
 ## Explain how prototypal inheritance works
+inheritance: allows one object to take parts of another object and inherit them as their own. Prototype is just an object that another object could inherit from. 
+
+There is a default prototype that things inherit from: Object.prototype, when we create an object, this will be availble to inherit from.
+
+-- When you create an object with object literal, it will invoke a new Object() constrcutor, which is where the Object.prototype comes from. When you create an object with the literal, called x, the object.prototype will transfer to the new object you just created. You can check this because Object.getProtytypeOf(x) === Object.prototype. 
 
 All JavaScript objects have a `__proto__` property with the exception of objects created with `__Object.create(null)__`, that is a reference to another object, which is called the object's "prototype". When a property is accessed on an object and if the property is not found on that object, the JavaScript engine looks at the object's `__proto__`, and the `__proto__`'s `__proto__` and so on, until it finds the property defined on one of the `__proto__`s or until it reaches the end of the prototype chain. This behavior simulates classical inheritance, but it is really more of [delegation than inheritance](https://davidwalsh.name/javascript-objects).
 
