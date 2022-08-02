@@ -223,7 +223,7 @@ child.constructor.name;
 - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Inheritance_and_the_prototype_chain
 
 
-### Setting prototype of an object
+### Setting prototype of an object for object literals;
 ```js
 let user = {
   active: true
@@ -236,6 +236,28 @@ let teacher = {
 Object.setPrototypeOf(teacher, user);
 ```
 You are saying "make teacher inherit from user";
+### Override in Prototypal Inheritance
+```js
+let user = {
+  active: true
+};
+ 
+let student = {
+  major: "English"
+};
+
+let teacher = {
+  teaching: ["math", "science"]
+};
+
+Object.setPrototypeOf(student, user);
+Object.setPrototypeOf(teacher, user);
+
+student.active = false;
+
+console.log(teacher) // let teacher = {teaching: ["math", "science"]};
+console.log(student) // let student = {major: "English", active: false};
+```
 
 ### What do you think of AMD vs CommonJS??
 
