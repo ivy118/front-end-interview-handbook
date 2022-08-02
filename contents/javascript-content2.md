@@ -142,6 +142,7 @@ There is a default prototype that things inherit from: Object.prototype, when we
 
 -- When you create an object with object literal, it will invoke a new Object() constrcutor, which is where the Object.prototype comes from. When you create an object with the literal, called x, the object.prototype will transfer to the new object you just created. You can check this because Object.getProtytypeOf(x) === Object.prototype. 
 
+
 All JavaScript objects have a `__proto__` property with the exception of objects created with `__Object.create(null)__`, that is a reference to another object, which is called the object's "prototype". When a property is accessed on an object and if the property is not found on that object, the JavaScript engine looks at the object's `__proto__`, and the `__proto__`'s `__proto__` and so on, until it finds the property defined on one of the `__proto__`s or until it reaches the end of the prototype chain. This behavior simulates classical inheritance, but it is really more of [delegation than inheritance](https://davidwalsh.name/javascript-objects).
 
 #### Example of Prototypal Inheritance
@@ -221,6 +222,20 @@ child.constructor.name;
 - https://crockford.com/javascript/prototypal.html
 - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Inheritance_and_the_prototype_chain
 
+
+### Setting prototype of an object
+```js
+let user = {
+  active: true
+};
+ 
+let teacher = {
+  teaching: ["math", "science"]
+}
+
+Object.setPrototypeOf(teacher, user);
+```
+You are saying "make teacher inherit from user";
 
 ### What do you think of AMD vs CommonJS??
 
