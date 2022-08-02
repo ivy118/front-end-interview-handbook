@@ -263,6 +263,34 @@ When you look for a property, it first looks at the object itself, and then move
 
 student.active is set directly on the student object.
 
+## Use Constructor Function instead of Object Literal for prototype inheritance
+```js
+function User () {
+  this.active: false;
+};
+ 
+User.prototype.sayHello = function() {
+  return this.name + " say hi!";
+};
+
+function Student(name, major) {
+  this.name = name;
+  this.major = major;
+};
+
+function Teacher(name, teaching) {
+  this.name = name;
+  this.teaching = teaching;
+};
+  
+// to make user the prototype of student and teacher:
+Student.prototype = new User();
+Teacher.prototype = new User();
+
+let student = new Student("Ivy Yu", "English");
+let teacher = new Teacher("Jonathan Cen", ["Com Sci"]);
+```
+
 ### What do you think of AMD vs CommonJS??
 
 Both are ways to implement a module system, which was not natively present in JavaScript until ES2015 came along. CommonJS is synchronous while AMD (Asynchronous Module Definition) is obviously asynchronous. CommonJS is designed with server-side development in mind while AMD, with its support for asynchronous loading of modules, is more intended for browsers.
