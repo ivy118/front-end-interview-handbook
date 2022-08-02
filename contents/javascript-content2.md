@@ -259,6 +259,10 @@ console.log(teacher) // let teacher = {teaching: ["math", "science"]};
 console.log(student) // let student = {major: "English", active: false};
 ```
 
+When you look for a property, it first looks at the object itself, and then move up in the prototype chain until it finds it or until we run out of prototype. 
+
+student.active is set directly on the student object.
+
 ### What do you think of AMD vs CommonJS??
 
 Both are ways to implement a module system, which was not natively present in JavaScript until ES2015 came along. CommonJS is synchronous while AMD (Asynchronous Module Definition) is obviously asynchronous. CommonJS is designed with server-side development in mind while AMD, with its support for asynchronous loading of modules, is more intended for browsers.
