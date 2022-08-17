@@ -301,7 +301,7 @@ const video = {
 video.showTags(); //window
 ```
 
-5. if the function is an arrow function, they don’t have their “own” this. If we reference this from such a function, it’s taken from the outer “normal” function.
+5. if the function is an arrow function, they don’t have their “own” this. If we reference this from such a function, it’s taken from the outer “normal” function. That’s a special feature of arrow functions, it’s useful when we actually do not want to have a separate this, but rather to take it from the outer context. 
 
 For Ex: 
 ```js
