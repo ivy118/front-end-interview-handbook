@@ -265,9 +265,47 @@ There are only two limitations:
 - If we had other objects, like bird, snake, etc., inheriting from animal, they would also gain access to methods of animal. But this in each method call would be the corresponding object, evaluated at the call-time (before dot), not animal. So when we write data into this, it is stored into these objects.
 
 - The for..in loop iterates over inherited properties too.
+- To exclude inherited properties, there’s a built-in method obj.hasOwnProperty(key)
+- Almost all other key/value-getting methods, such as Object.keys, Object.values and so on ignore inherited properties.
 
 As a result, methods are shared, but the object state is not.
 - this is not affected by prototypes at all: No matter where the method is found: in an object or its prototype. In a method call, this is always the object before the dot.
+
+### Prototype methods, objects without __proto__
+The modern methods to get/set a prototype are:
+
+Object.getPrototypeOf(obj) – returns the [[Prototype]] of obj.
+Object.setPrototypeOf(obj, proto) – sets the [[Prototype]] of obj to proto.
+
+The only usage of __proto__, that’s not frowned upon, is as a property when creating a new object: { __proto__: ... }.
+
+
+There’s a special method for this too:
+Object.create(proto, [descriptors]) – creates an empty object with given proto as [[Prototype]] and optional property descriptors.
+
+```js
+let animal = {
+  eats: true
+};
+
+// create a new object with animal as a prototype
+// We can provide additional properties to the new object there, like this:
+let rabbit = Object.create(animal, {
+  jumps: {
+    value: true
+  }
+});
+alert(rabbit.jumps); // true  // same as {__proto__: animal}
+alert(rabbit.eats); // true
+alert(Object.getPrototypeOf(rabbit) === animal); // true
+Object.setPrototypeOf(rabbit, {}); // change the prototype of rabbit to {}
+```
+
+The only usage of __proto__, that’s not frowned upon, is as a property when creating a new object: { __proto__: ... }.
+
+- Prototype-less objects, created with Object.create(null) or {__proto__: null}.
+These objects are used as dictionaries, to store any (possibly user-generated) keys.
+Normally, objects inherit built-in methods and __proto__ getter/setter from Object.prototype, making corresponding keys “occupied” and potentially causing side effects. With null prototype, objects are truly empty.
 ###### References
 
 - http://dmitrysoshnikov.com/ecmascript/javascript-the-core/
