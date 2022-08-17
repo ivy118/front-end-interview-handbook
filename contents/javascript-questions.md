@@ -286,7 +286,7 @@ function Video(title) {
 const v = new Video('b'); // {}
 ```
 
-4. If the function is an ES2015 arrow function, it's treated like a regular function, so 'this' would represent the window object.
+4. If the function is an callback function, it's treated like a regular function, so 'this' would represent the window object.
 ```js
 const video = {
 	title: 'a',
@@ -299,6 +299,22 @@ const video = {
 };
 
 video.showTags(); //window
+```
+
+5. if the function is an arrow function, they don’t have their “own” this. If we reference this from such a function, it’s taken from the outer “normal” function.
+
+For Ex: 
+```js
+const video = {
+	title: 'a',
+	tags: ['a','b','c'],
+	showTags() {
+		this.tags.forEach((tag) =>
+            {console.log(this, tag)})  //{title: 'a', tags: Array(3), showTags: ƒ} 'a'...
+	}
+};
+
+video.showTags(); 
 ```
 
 How do we actually have access to the video object inside of the arrow function then? 
