@@ -99,6 +99,7 @@ console.log(bound(2,3)); //8
 ```
 
 # Object Oriented Programming - JS
+[[Prototype]]: In JavaScript, objects have a special hidden property [[Prototype]] (as named in the specification), that is either null or references another object. That object is called “a prototype”.
 ## Creating a constructor function
 ```js
 function User(name, interests) {
@@ -136,6 +137,8 @@ Here, only one method is created.
 
 
 ## Explain how prototypal inheritance works
+When we read a property from object, and it’s missing, JavaScript automatically takes it from the prototype. In programming, this is called “prototypal inheritance”. 
+
 inheritance: allows one object to take parts of another object and inherit them as their own. Prototype is just an object that another object could inherit from. 
 
 There is a default prototype that things inherit from: Object.prototype, when we create an object, this will be availble to inherit from.
@@ -176,7 +179,6 @@ child.constructor;
 child.constructor.name;
 // 'Parent'
 ```
-
 Things to note are:
 
 - `.greet` is not defined on the _child_, so the engine goes up the prototype chain and finds `.greet` off the inherited from _Parent_.
@@ -214,6 +216,58 @@ child.constructor.name;
 // 'Child'
 ```
 
+Ex2: 
+```js
+let animal = {
+  eats: true
+};
+let rabbit = {
+  jumps: true
+};
+
+rabbit.__proto__ = animal; // sets rabbit.[[Prototype]] = animal
+```
+Here we can say that "animal is the prototype of rabbit" or "rabbit prototypically inherits from animal".
+So if animal has a lot of useful properties and methods, then they become automatically available in rabbit. Such properties are called “inherited”.
+
+
+The prototype chain can be longer:
+```js
+let animal = {
+  eats: true,
+  walk() {
+    alert("Animal walk");
+  }
+};
+
+let rabbit = {
+  jumps: true,
+  __proto__: animal
+};
+
+let longEar = {
+  earLength: 10,
+  __proto__: rabbit
+};
+
+// walk is taken from the prototype chain
+longEar.walk(); // Animal walk
+alert(longEar.jumps); // true (from rabbit)
+```
+
+There are only two limitations:
+- The references can’t go in circles. JavaScript will throw an error if we try to assign __proto__ in a circle.
+- The value of __proto__ can be either an object or null. Other types are ignored.
+
+- There can be only one [[Prototype]]. An object may not inherit from two others.
+- Please note that __proto__ is not the same as the internal [[Prototype]] property. It’s a getter/setter for [[Prototype]].
+
+- If we had other objects, like bird, snake, etc., inheriting from animal, they would also gain access to methods of animal. But this in each method call would be the corresponding object, evaluated at the call-time (before dot), not animal. So when we write data into this, it is stored into these objects.
+
+- The for..in loop iterates over inherited properties too.
+
+As a result, methods are shared, but the object state is not.
+- this is not affected by prototypes at all: No matter where the method is found: in an object or its prototype. In a method call, this is always the object before the dot.
 ###### References
 
 - http://dmitrysoshnikov.com/ecmascript/javascript-the-core/
