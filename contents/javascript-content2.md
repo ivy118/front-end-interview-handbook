@@ -314,7 +314,29 @@ Normally, objects inherit built-in methods and __proto__ getter/setter from Obje
 - https://crockford.com/javascript/prototypal.html
 - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Inheritance_and_the_prototype_chain
 
+Exercise: 
+Let’s create a new rabbit object:
+```js
+function Rabbit(name) {
+  this.name = name;
+}
+Rabbit.prototype.sayHi = function() {
+  alert(this.name);
+};
 
+// These calls do the same thing or not?
+rabbit.sayHi();
+Rabbit.prototype.sayHi();
+Object.getPrototypeOf(rabbit).sayHi();
+rabbit.__proto__.sayHi();
+```
+The first call has this == rabbit, the other ones have this equal to Rabbit.prototype, because it’s actually the object before the dot.
+
+So only the first call shows Rabbit, other ones show undefined:
+
+
+
+let rabbit = new Rabbit("Rabbit");
 ### Setting prototype of an object for object literals;
 ```js
 let user = {
