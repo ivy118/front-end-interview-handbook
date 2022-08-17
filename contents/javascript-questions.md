@@ -335,7 +335,37 @@ video.showTags(); //video
 ```
 
 5. If `apply`, `call`, or `bind` are used to call/create a function, `this` inside the function is the object that is passed in as the argument.
-7. If multiple of the above rules apply, the rule that is higher wins and will set the `this` value.
+6. If multiple of the above rules apply, the rule that is higher wins and will set the `this` value.
+
+Exercise: What is the result of accessing its ref? Why?
+```js
+function makeUser() {
+  return {
+    name: "John",
+    ref: this
+  };
+}
+
+let user = makeUser();
+alert( user.ref.name ); // What's the result?
+```
+Answer: an error. That’s because rules that set this do not look at object definition. Here the value of this inside makeUser() is undefined, because it is called as a function, not as a method with “dot” syntax.
+The value of this is one for the whole function, code blocks and object literals do not affect it.
+
+Here’s the opposite case:
+```js
+function makeUser() {
+  return {
+    name: "John",
+    ref() {
+      return this;
+    }
+  };
+}
+
+let user = makeUser();
+alert( user.ref().name ); // John
+```
 
 For an in-depth explanation, do check out his [article on Medium](https://codeburst.io/the-simple-rules-to-this-in-javascript-35d97f31bde3).
 
