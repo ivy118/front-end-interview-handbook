@@ -238,3 +238,107 @@ That means Child.prototype.__proto__ will be Parent.prototype, so methods are in
 We must call parent constructor as super() in Child constructor before using this.
 - When overriding another method:
 We can use super.method() in a Child method to call Parent method.
+
+## Static properties and methods
+We can also assign a method to the class as a whole. Such methods are called static.
+In a class declaration, they are prepended by static keyword, like this:
+```js
+class User {
+  static staticMethod() {
+    alert(this === User);
+  }
+}
+User.staticMethod(); // true
+```
+- Usually, static methods are used to implement functions that belong to the class as a whole, but not to any particular object of it.
+
+Static methods are also used in database-related classes to search/save/remove entries from the database, like this:
+```js
+// assuming Article is a special class for managing articles
+// static method to remove the article by id:
+Article.remove({id: 12345});
+```
+### Static properties and methods are inherited.
+So, Rabbit extends Animal creates two [[Prototype]] references:
+
+Rabbit function prototypally inherits from Animal function.
+Rabbit.prototype prototypally inherits from Animal.prototype.
+As a result, inheritance works both for regular and static methods.
+
+Here, let’s check that by code:
+```js
+class Animal {}
+class Rabbit extends Animal {}
+// for statics
+alert(Rabbit.__proto__ === Animal); // true
+
+// for regular methods
+alert(Rabbit.prototype.__proto__ === Animal.prototype); // true
+```
+
+## Private and protected properties and methods
+- Usually, devices that we’re using are quite complex. But delimiting the internal interface from the external one allows to use them without problems.
+- The secret of reliability and simplicity of a coffee machine – all details are well-tuned and hidden inside.
+
+### In JavaScript, there are two types of object fields (properties and methods):
+Public: accessible from anywhere. They comprise the external interface. Until now we were only using public properties and methods.
+Private: accessible only from inside the class. These are for the internal interface.
+
+#### Protected properties are usually prefixed with an underscore _.
+That is not enforced on the language level, but there’s a well-known convention between programmers that such properties and methods should not be accessed from the outside.
+
+```js
+class CoffeeMachine {
+  _waterAmount = 0;
+
+  set waterAmount(value) {
+    if (value < 0) {
+      value = 0;
+    }
+    this._waterAmount = value;
+  }
+
+  get waterAmount() {
+    return this._waterAmount;
+  }
+
+  constructor(power) {
+    this._power = power;
+  }
+}
+// create the coffee machine
+let coffeeMachine = new CoffeeMachine(100);
+// add water
+coffeeMa
+chine.waterAmount = -10; // _waterAmount will become 0, not -10
+```
+
+### Protected fields are inherited
+If we inherit class MegaMachine extends CoffeeMachine, then nothing prevents us from accessing this._waterAmount or this._power from the methods of the new class.
+So protected fields are naturally inheritable. Unlike private ones that we’ll see below.
+
+#### Private “#waterLimit”
+Privates should start with #. They are only accessible from inside the class.
+```js
+class CoffeeMachine {
+  #waterLimit = 200;
+  #fixWaterAmount(value) {
+    if (value < 0) return 0;
+    if (value > this.#waterLimit) return this.#waterLimit;
+  }
+
+  setWaterAmount(value) {
+    this.#waterLimit = this.#fixWaterAmount(value);
+  }
+
+}
+
+let coffeeMachine = new CoffeeMachine();
+// can't access privates from outside of the class
+coffeeMachine.#fixWaterAmount(123); // Error
+coffeeMachine.#waterLimit = 1000; // Error
+```
+* Unlike protected ones, private fields are enforced by the language itself. That’s a good thing.
+* But if we inherit from CoffeeMachine, then we’ll have no direct access to #waterAmount. We’ll need to rely on waterAmount getter/setter:
+* Unlike protected ones, private fields are enforced by the language itself. That’s a good thing.
+But if we inherit from CoffeeMachine, then we’ll have no direct access to #waterAmount. We’ll need to rely on waterAmount getter/setter:
