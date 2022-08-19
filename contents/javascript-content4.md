@@ -232,9 +232,9 @@ In our case, Rabbit is the derived class. There’s no constructor() in it. As s
 So, new Rabbit() calls super(), thus executing the parent constructor, and (per the rule for derived classes) only after that its class fields are initialized. At the time of the parent constructor execution, there are no Rabbit class fields yet, that’s why Animal fields are used.
 
 ### Summary
-To extend a class: class Child extends Parent:
+- To extend a class: class Child extends Parent:
 That means Child.prototype.__proto__ will be Parent.prototype, so methods are inherited.
-When overriding a constructor:
+- When overriding a constructor:
 We must call parent constructor as super() in Child constructor before using this.
-When overriding another method:
+- When overriding another method:
 We can use super.method() in a Child method to call Parent method.
