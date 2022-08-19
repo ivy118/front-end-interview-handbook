@@ -202,3 +202,40 @@ let rabbit = new Rabbit("White Rabbit", 10);
 alert(rabbit.name); // White Rabbit
 alert(rabbit.earLength); // 10
 ```
+We can override not only methods, but not class fields.
+```js
+class Animal {
+  name = 'animal';
+  constructor() {
+    alert(this.name); // (*)
+  }
+}
+
+class Rabbit extends Animal {
+  name = 'rabbit';
+}
+new Animal(); // animal
+new Rabbit(); // animal
+```
+Here, class Rabbit extends Animal and overrides the name field with its own value.
+In other words, the parent constructor always uses its own field value, not the overridden one.
+
+And that’s what we naturally expect. When the parent constructor is called in the derived class, it uses the overridden method.
+…But for class fields it’s not so. As said, the parent constructor always uses the parent field.
+
+Why is there a difference?
+Well, the reason is the field initialization order. The class field is initialized:
+
+Before constructor for the base class (that doesn’t extend anything),
+Immediately after super() for the derived class.
+In our case, Rabbit is the derived class. There’s no constructor() in it. As said previously, that’s the same as if there was an empty constructor with only super(...args).
+
+So, new Rabbit() calls super(), thus executing the parent constructor, and (per the rule for derived classes) only after that its class fields are initialized. At the time of the parent constructor execution, there are no Rabbit class fields yet, that’s why Animal fields are used.
+
+*** Summary
+To extend a class: class Child extends Parent:
+That means Child.prototype.__proto__ will be Parent.prototype, so methods are inherited.
+When overriding a constructor:
+We must call parent constructor as super() in Child constructor before using this.
+When overriding another method:
+We can use super.method() in a Child method to call Parent method.
