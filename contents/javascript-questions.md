@@ -72,12 +72,6 @@ document.addEventListener("click", e => {
 })
 ```
 
-###### References
-
-- https://davidwalsh.name/event-delegate
-- https://stackoverflow.com/questions/1687296/what-is-dom-event-delegation
-
-
 ## What is `"use strict";`? What are the advantages and disadvantages to using it?
 
 'use strict' changes previously accepted "bad syntax" into real errors. Strict mode is a way to opt into a restricted variant of JavaScript.
@@ -109,12 +103,6 @@ function myFunction() {
   y = 3.14;   // This will cause an error
 }
 ```
-
-###### References
-
-- http://2ality.com/2011/10/strict-mode-hatred.html
-- http://lucybain.com/blog/2014/js-use-strict/
-
 
 ## Can you give an example for destructuring an object or an array?
 
@@ -153,12 +141,6 @@ console.log(p); // 42
 console.log(q); // true
 ```
 
-###### References
-
-- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment
-- https://ponyfoo.com/articles/es6-destructuring-in-depth
-
-
 ## What is a closure, and how/why would you use one?
 
 A closure is the combination of a function and the lexical environment within which that function was declared. Closures are functions that have access to the outer (enclosing) function's variables—scope chain even after the outer function has returned. 
@@ -186,11 +168,6 @@ A closure gives you access to an outer function’s scope from an inner function
 
 - Data privacy / emulating private methods with closures. Commonly used in the [module pattern](https://addyosmani.com/resources/essentialjsdesignpatterns/book/#modulepatternjavascript).
 When you use closures for data privacy, the enclosed variables are only in scope within the containing (outer) function. You can’t get at the data from an outside scope
-
-###### References
-
-- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures
-- https://medium.com/javascript-scene/master-the-javascript-interview-what-is-a-closure-b2f0d2152b36
 
 ## What's the difference between a variable that is: `null`, `undefined` or undeclared? How would you go about checking for any of these states?
 
@@ -232,11 +209,6 @@ console.log(foo == undefined); // true. Wrong, don't use this to check!
 
 ** notice that null is an object in JS.
 
-###### References
-
-- https://stackoverflow.com/questions/15985875/effect-of-declared-and-undeclared-variables
-- https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/undefined
-
 ## What's a typical use case for anonymous functions?
 
 They can be used in IIFEs to encapsulate some code within a local scope so that variables declared in it do not leak to the global scope.
@@ -264,11 +236,6 @@ const double = arr.map(function (el) {
 });
 console.log(double); // [2, 4, 6]
 ```
-
-###### References
-
-- https://www.quora.com/What-is-a-typical-usecase-for-anonymous-functions
-- https://stackoverflow.com/questions/10273185/what-are-the-benefits-to-using-anonymous-functions-instead-of-named-functions-fo
 
 ### Explain how `this` works in JavaScript
 'this' is the object that is executing the current function .
@@ -367,16 +334,9 @@ let user = makeUser();
 alert( user.ref().name ); // John
 ```
 
-For an in-depth explanation, do check out his [article on Medium](https://codeburst.io/the-simple-rules-to-this-in-javascript-35d97f31bde3).
-
 #### Can you give an example of one of the ways that working with this has changed in ES6?
 
 ES6 allows you to use [arrow functions](http://2ality.com/2017/12/alternate-this.html#arrow-functions) which uses the [enclosing lexical scope](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions#No_separate_this). This is usually convenient, but does prevent the caller from controlling context via `.call` or `.apply`—the consequences being that a library such as `jQuery` will not properly bind `this` in your event handler functions. Thus, it's important to keep this in mind when refactoring large legacy applications.
-
-###### References
-
-- https://codeburst.io/the-simple-rules-to-this-in-javascript-35d97f31bde3
-- https://stackoverflow.com/a/3127440/1751946
 
 ## What are the differences between variables created using `let`, `var` or `const`?
 
@@ -454,12 +414,6 @@ const baz = 'baz';
 baz = 'qux';
 ```
 
-###### References
-
-- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/let
-- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/var
-- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/const
-
 ## Explain "hoisting".
 
 Hoisting is a term used to explain the behavior of variable declarations in your code. Variables declared or initialized with the `var` keyword will have their declaration "moved" up to the top of their module/function-level scope, which we refer to as hoisting. However, only the declaration is hoisted, the assignment (if there is one), will stay where it is.
@@ -501,9 +455,4 @@ y; // Reference error: y is not defined
 var x = 'local';
 let y = 'local';
 ```
-
-###### References
-
-- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Grammar_and_Types#Variable_hoisting
-- https://stackoverflow.com/questions/31219420/are-variables-declared-with-let-or-const-not-hoisted-in-es6/31222689#31222689
 
