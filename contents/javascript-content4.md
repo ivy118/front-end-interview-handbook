@@ -342,3 +342,8 @@ coffeeMachine.#waterLimit = 1000; // Error
 * But if we inherit from CoffeeMachine, then we’ll have no direct access to #waterAmount. We’ll need to rely on waterAmount getter/setter:
 * Unlike protected ones, private fields are enforced by the language itself. That’s a good thing.
 But if we inherit from CoffeeMachine, then we’ll have no direct access to #waterAmount. We’ll need to rely on waterAmount getter/setter:
+
+
+
+
+## textContents vs innerText
