@@ -337,4 +337,3 @@ const {e, f, ...others} = {
   h: 4,
 }; // e: 1, f: 2, others: { g: 3, h: 4 }
 ```
-- http://flowerszhong.github.io/2013/11/20/javascript-questions.html
